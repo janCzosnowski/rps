@@ -49,5 +49,21 @@ function round(player, computer){
 
     }
 }
+function game(){
+    let pScore = 0, cScore = 0;
+    let result;
+for(let i = 0; i<5; i++){
 
-console.log(round(playerSelection(), getComputerChoice()));
+    result = round(playerSelection(), getComputerChoice());
+    console.log(result);
+    if(result.charAt(4) === "w"){
+        pScore++;
+    } else if(result.charAt(4) === "l"){
+        cScore++;
+    }
+    console.log("current result is: ", pScore, " to ", cScore);
+}
+
+}
+
+game()
