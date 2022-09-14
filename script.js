@@ -1,4 +1,49 @@
-function getComputerChoice(){
+const div = document.createElement('div');
+const container = document.querySelector('#container');
+const results = document.createElement('div');
+
+results.innerHTML = "You have chosen:<div id = 'pChoice'></div><p>Enemy has chosen:</p><div id = cChoice></div><p>current score is:</p><div id = 'score'></div>";
+results.setAttribute('style', 'font-weight: 800; font-size: 2em; text-align: center; font-family: sans-serif');
+
+
+let pscore = 0;
+let cscore = 0;
+
+div.classList.add('content');
+div.setAttribute('style', 'text-align: center; font-family: sans-serif; font-size = 28px;');
+div.innerHTML = "<button id='rock'>rock</button><button id='paper'>paper</button><button id='scissors'>scissors</button>";
+div.appendChild(results);
+container.appendChild(div);
+const buttons = document.querySelectorAll('button');
+
+// we use the .forEach method to iterate through each button
+buttons.forEach((button) => {
+
+  // and for each one we add a 'click' listener
+  button.addEventListener('click', () => {
+    console.log(round(button.id, getComputerChoice()));
+  });
+});
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  
+  
+  function getComputerChoice(){
     let number = Math.floor(Math.random() * 3) + 1;
     let choice;
     if(number == 1){
@@ -12,58 +57,35 @@ function getComputerChoice(){
     return choice;
 }
 
-function playerSelection(){
-    let choice = prompt("input rock, paper or scissors: ");
-    
-    choice = choice.toLowerCase();
-
-    while(choice != "rock" && choice != "paper" && choice != "scissors"){
-        choice = prompt("input a valid option: rock, paper or scissors");
-    }
-
-    return choice;
-}
-
 function round(player, computer){
+    const pChoice = document.querySelector('#pChoice');
+    const cChoice = document.querySelector('#cChoice');
+    const score = document.querySelector('#score')
+    pChoice.innerHTML = player;
+    cChoice.innerHTML = computer;
     if(player === computer){
-        return "It's a draw!";
+        pscore += 1;
+        cscore += 1;
     } else if(player == "rock"){
         if(computer == "paper"){
-            return "You lost, paper beats rock."
+            cscore += 1;
         }else{
-            return "You won, rock beats scissor!"
+            pscore += 1;
         }
 
     } else if(player == "paper"){
         if(computer == "scissors"){
-            return "You lost, scissors beat paper."
+            cscore += 1;
         }else{
-            return "You won, paper beats rock!"
+            pscore += 1;
         }
     } else if(player == "scissors"){
         if(computer == "rock"){
-            return "You lost, paper beats scissors."
+            cscore += 1;
         }else{
-            return "You won, scissors beat paper!"
+            pscore += 1;
         }
 
     }
+    score.innerHTML = 'Player: ' + pscore + " Enemy: " + cscore;
 }
-function game(){
-    let pScore = 0, cScore = 0;
-    let result;
-for(let i = 0; i<5; i++){
-
-    result = round(playerSelection(), getComputerChoice());
-    console.log(result);
-    if(result.charAt(4) === "w"){
-        pScore++;
-    } else if(result.charAt(4) === "l"){
-        cScore++;
-    }
-    console.log("current result is: ", pScore, " to ", cScore);
-}
-
-}
-
-game()
